@@ -231,7 +231,7 @@ class BenchmarkRunner(metaclass=AutodocABCMeta):
 
                     # Execute the task and the corresponding evaluations
                     task = Task(task_filepath, context=self._context)
-                    
+
                     # Prepare task environment before agent execution
                     try:
                         self._logger.info("Preparing task environment for: %s", task_path)
@@ -239,7 +239,7 @@ class BenchmarkRunner(metaclass=AutodocABCMeta):
                     except Exception as e:
                         self._logger.error("Failed to prepare task environment: %s", str(e))
                         # Continue execution even if prepare fails (for backward compatibility)
-                    
+
                     if task.use_specified_server() and isinstance(agent, BaseAgent):
                         await agent.change_servers(task.get_mcp_servers())
                     agent.reset()
