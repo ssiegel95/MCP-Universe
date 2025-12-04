@@ -18,7 +18,7 @@ from mcpuniverse.common.logger import get_logger
 from mcpuniverse.mcp.manager import MCPManager
 from mcpuniverse.common.context import Context
 from .cleanups import CLEANUP_FUNCTIONS
-from .prepares import PREPARE_FUNCTIONS
+from .configs.mcpmark.prepares import PREPARE_FUNCTIONS
 
 
 class TaskPrepareConfig(BaseModel):

@@ -429,14 +429,18 @@ POSTGRES_USERNAME=postgres
 POSTGRES_PASSWORD=password
 ```
 
-**Note**: The database name in `POSTGRES_ADDRESS` will be automatically changed per task by `mcpuniverse/benchmark/prepares.py`.
-
 ---
 
-#### 2 · Running PostgreSQL Tasks
+#### 2 · Running PostgreSQL Container with Docker
 
+Start a PostgreSQL instance using Docker:
 ```bash
-python tests/benchmark/mcpmark/test_benchmark_mcpmark_postgres.py
+docker run -d \
+   --name mcpmark-postgres \
+   -e POSTGRES_PASSWORD=mysecretpassword \
+   -e POSTGRES_USER=postgres \
+   -p 5432:5432 \
+   postgres
 ```
 
 ---
@@ -462,31 +466,6 @@ docker start mcpmark-postgres
 ```bash
 docker stop mcpmark-postgres
 docker rm mcpmark-postgres
-# Then run setup again
-./mcpmark/prepare_scripts/setup_postgres.sh
-```
-
----
-
-#### 4 · Advanced Usage
-
-##### Force Re-download Databases
-
-```bash
-python mcpmark/prepare_scripts/prepare_postgres.py --force-download
-```
-
-##### Setup Specific Databases Only
-
-```bash
-# Single database
-python mcpmark/prepare_scripts/prepare_postgres.py --databases chinook
-
-# Multiple databases
-python mcpmark/prepare_scripts/prepare_postgres.py --databases chinook employees
-
-# All databases (default)
-python mcpmark/prepare_scripts/prepare_postgres.py --databases all
 ```
 
 ---
@@ -495,7 +474,7 @@ python mcpmark/prepare_scripts/prepare_postgres.py --databases all
 
 ##### Files Downloaded
 ```
-tests/data/postgres/
+third_party/mcpmark/postgres_state/
 ├── chinook.backup      # Music store database
 ├── employees.backup    # Employee management
 ├── dvdrental.backup    # DVD rental store
