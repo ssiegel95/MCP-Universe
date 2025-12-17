@@ -433,14 +433,24 @@ POSTGRES_PASSWORD=password
 
 #### 2 · Running PostgreSQL Container with Docker
 
-Start a PostgreSQL instance using Docker:
+Start a PostgreSQL instance using Docker. For vector tasks, we recommend the official pgvector image:
+
 ```bash
+# Recommended: pgvector image (supports pgvector extension out of the box)
 docker run -d \
-   --name mcpmark-postgres \
-   -e POSTGRES_PASSWORD=mysecretpassword \
-   -e POSTGRES_USER=postgres \
-   -p 5432:5432 \
-   postgres
+  --name mcpmark-postgres \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_USER=postgres \
+  -p 5432:5432 \
+  pgvector/pgvector:0.8.0-pg17-bookworm
+
+# Alternative: plain Postgres image (only if you do NOT run vector tasks)
+# docker run -d \
+#   --name mcpmark-postgres \
+#   -e POSTGRES_PASSWORD=password \
+#   -e POSTGRES_USER=postgres \
+#   -p 5432:5432 \
+#   postgres
 ```
 
 ---
