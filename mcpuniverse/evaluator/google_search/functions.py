@@ -87,7 +87,7 @@ async def google_search__llm_as_a_judge(llm_response: Any, *args, **kwargs) -> (
     max_tries = 3
     for _ in range(max_tries):
         try:
-            response = llm_response.result
+            response = llm_response if isinstance(llm_response, str) else llm_response.result
             prompt = google_search__get_judge_prompt(question, response, correct_answer)
             response = google_search__call_gpt(prompt, **kwargs)
             if response is None:
