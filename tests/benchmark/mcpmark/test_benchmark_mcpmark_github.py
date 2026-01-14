@@ -4,20 +4,12 @@ from mcpuniverse.tracer.collectors import FileCollector
 from mcpuniverse.benchmark.runner import BenchmarkRunner
 from mcpuniverse.benchmark.report import BenchmarkReport
 from mcpuniverse.callbacks.handlers.vprint import get_vprint_callbacks
-from mcpuniverse.benchmark.configs.mcpmark.prepares import PREPARE_FUNCTIONS
-from mcpuniverse.common.context import Context
-
 
 class TestBenchmarkRunnerMCPMarkGitHub(unittest.IsolatedAsyncioTestCase):
 
     @pytest.mark.skip
     async def test(self):
         """Test MCPMark GitHub tasks (Build Your Own X + Claude Code)."""
-
-        print("Preparing GitHub environment...")
-        context = Context()
-        prepare_response = await PREPARE_FUNCTIONS["mcpmark_github_setup"](context=context)
-        print(prepare_response)
 
         print("Running GitHub tasks...")
         trace_collector = FileCollector(log_file="log/mcpmark/mcpmark_github.log")

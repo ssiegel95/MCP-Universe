@@ -4,17 +4,12 @@ from mcpuniverse.tracer.collectors import FileCollector
 from mcpuniverse.benchmark.runner import BenchmarkRunner
 from mcpuniverse.benchmark.report import BenchmarkReport
 from mcpuniverse.callbacks.handlers.vprint import get_vprint_callbacks
-from mcpuniverse.benchmark.configs.mcpmark.prepares import PREPARE_FUNCTIONS
 
 class TestBenchmarkRunnerMCPMarkPostgres(unittest.IsolatedAsyncioTestCase):
 
     @pytest.mark.skip
     async def test(self):
         """Test MCPMark Postgres tasks."""
-
-        print("Preparing Postgres environment...")
-        prepare_response = await PREPARE_FUNCTIONS["mcpmark_postgres_setup"]()
-        print(prepare_response)
 
         print("Running Postgres tasks...")
         trace_collector = FileCollector(log_file="log/mcpmark/mcpmark_postgres.log")

@@ -1,6 +1,6 @@
 {
     "category": "missing_semester",
-    "question": "Please execute the following task in my repository:{GITHUB_EVAL_ORG}/missing-semester\\n I want to know which file has been modified most frequently in the past 100 commits. However, I don't want to consider files related to GitHub Actions.\nPlease find the file and create an ANSWER.md, then write the file name in it.",
+    "question": "Please execute the following task in my repository:{{GITHUB_EVAL_ORG}}/missing-semester\\n I want to know which file has been modified most frequently in the past 100 commits. However, I don't want to consider files related to GitHub Actions.\nPlease find the file and create an ANSWER.md, then write the file name in it.",
     "use_specified_server": true,
     "mcp_servers": [
         {

@@ -1,6 +1,6 @@
 {
     "category": "missing_semester",
-    "question": "Please execute the following task in my repository:{GITHUB_EVAL_ORG}/missing-semester\\n I remember that a long time ago, *The Missing Semester of Your CS Education* had a different name and domain. There should be some related commit history. Please find the old name and domain and create an **ANSWER.md** file with them, formatted as:\n\n[title](url)\n\nThen push the file to the `master` branch.",
+    "question": "Please execute the following task in my repository:{{GITHUB_EVAL_ORG}}/missing-semester\\n I remember that a long time ago, *The Missing Semester of Your CS Education* had a different name and domain. There should be some related commit history. Please find the old name and domain and create an **ANSWER.md** file with them, formatted as:\n\n[title](url)\n\nThen push the file to the `master` branch.",
     "use_specified_server": true,
     "mcp_servers": [
         {

@@ -4,19 +4,12 @@ from mcpuniverse.tracer.collectors import FileCollector
 from mcpuniverse.benchmark.runner import BenchmarkRunner
 from mcpuniverse.benchmark.report import BenchmarkReport
 from mcpuniverse.callbacks.handlers.vprint import get_vprint_callbacks
-from mcpuniverse.benchmark.configs.mcpmark.prepares import PREPARE_FUNCTIONS
-from mcpuniverse.common.context import Context
 
 class TestBenchmarkRunnerMCPMarkNotion(unittest.IsolatedAsyncioTestCase):
 
     @pytest.mark.skip
     async def test(self):
         """Test MCPMark Notion tasks across 10 projects with 28 verification functions."""
-
-        print("Preparing Notion environment...")
-        context = Context()
-        prepare_response = await PREPARE_FUNCTIONS["mcpmark_notion_setup"](context=context)
-        print(prepare_response)
 
         print("Running Notion tasks...")
         trace_collector = FileCollector(log_file="log/mcpmark/mcpmark_notion.log")

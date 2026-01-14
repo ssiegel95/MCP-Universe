@@ -4,17 +4,12 @@ from mcpuniverse.tracer.collectors import FileCollector
 from mcpuniverse.benchmark.runner import BenchmarkRunner
 from mcpuniverse.benchmark.report import BenchmarkReport
 from mcpuniverse.callbacks.handlers.vprint import get_vprint_callbacks
-from mcpuniverse.benchmark.configs.mcpmark.prepares import PREPARE_FUNCTIONS
 
 class TestBenchmarkRunnerMCPMarkPlaywright(unittest.IsolatedAsyncioTestCase):
 
     @pytest.mark.skip
     async def test(self):
         """Test MCPMark Playwright tasks."""
-
-        print("Preparing Playwright environment...")
-        prepare_response = await PREPARE_FUNCTIONS["mcpmark_playwright_setup"]()
-        print(prepare_response)
 
         print("Running Playwright tasks...")
         trace_collector = FileCollector(log_file="log/mcpmark/mcpmark_playwright.log")

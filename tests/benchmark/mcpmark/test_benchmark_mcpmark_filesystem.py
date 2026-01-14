@@ -4,17 +4,12 @@ from mcpuniverse.tracer.collectors import FileCollector
 from mcpuniverse.benchmark.runner import BenchmarkRunner
 from mcpuniverse.benchmark.report import BenchmarkReport
 from mcpuniverse.callbacks.handlers.vprint import get_vprint_callbacks
-from mcpuniverse.benchmark.configs.mcpmark.prepares import PREPARE_FUNCTIONS
 
 class TestBenchmarkRunnerMCPMarkFilesystem(unittest.IsolatedAsyncioTestCase):
 
     @pytest.mark.skip
     async def test(self):
         """Test MCPMark Filesystem tasks starting with Desktop category (3 tasks)."""
-        
-        print("Preparing Filesystem environment...")
-        prepare_response = await PREPARE_FUNCTIONS["mcpmark_filesystem_setup"]()
-        print(prepare_response)
         
         print("Running Filesystem tasks...")
         trace_collector = FileCollector(log_file="log/mcpmark/mcpmark_filesystem.log")
