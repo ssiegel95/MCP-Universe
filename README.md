@@ -315,22 +315,22 @@ Execute specific domain benchmarks using the following commands:
 export PYTHONPATH=.
 
 # Location Navigation
-python tests/benchmark/test_benchmark_location_navigation.py
+python tests/benchmark/mcpuniverse/test_benchmark_location_navigation.py
 
 # Browser Automation  
-python tests/benchmark/test_benchmark_browser_automation.py
+python tests/benchmark/mcpuniverse/test_benchmark_browser_automation.py
 
 # Financial Analysis
-python tests/benchmark/test_benchmark_financial_analysis.py
+python tests/benchmark/mcpuniverse/test_benchmark_financial_analysis.py
 
 # Repository Management
-python tests/benchmark/test_benchmark_repository_management.py
+python tests/benchmark/mcpuniverse/test_benchmark_repository_management.py
 
 # Web Search
-python tests/benchmark/test_benchmark_web_search.py
+python tests/benchmark/mcpuniverse/test_benchmark_web_search.py
 
 # 3D Design
-python tests/benchmark/test_benchmark_3d_design.py
+python tests/benchmark/mcpuniverse/test_benchmark_3d_design.py
 ```
 
 #### Batch Execution
@@ -346,7 +346,7 @@ domains=("location_navigation" "browser_automation" "financial_analysis"
 
 for domain in "${domains[@]}"; do
     echo "Running benchmark: $domain"
-    python "tests/benchmark/test_benchmark_${domain}.py"
+    python "tests/benchmark/mcpuniverse/test_benchmark_${domain}.py"
     echo "Completed: $domain"
 done
 ```
