@@ -197,7 +197,7 @@ class AgentPipeline(metaclass=AutodocABCMeta):
         max_retries, retry_delay = 6, 10
         for attempt in range(max_retries):
             try:
-                redis_client = redis.Redis(host=redis_host, port=redis_port, socket_timeout=30)
+                redis_client = redis.Redis(host=redis_host, port=redis_port, socket_timeout=10)
                 redis_client.ping()
                 return redis_client
             except (redis.ConnectionError, redis.TimeoutError) as e:

@@ -162,7 +162,7 @@ class OpenRouterModel(BaseLLM):
                 response_format is provided, or None if parsing structured output fails.
                 Returns None if all retry attempts fail or non-retryable errors occur.
         """
-        max_retries = kwargs.get("max_retries", 5)
+        max_retries = kwargs.get("max_retries", 0)
         base_delay = kwargs.get("base_delay", 10.0)
         # Map model name to OpenRouter model name
         model_name = model_name_map.get(self.config.model_name, self.config.model_name)

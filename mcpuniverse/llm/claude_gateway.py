@@ -113,7 +113,7 @@ class ClaudeGatewayModel(BaseLLM):
             Union[str, Response, None]: The generated content as a string if no tools,
                 a Response object if tools are provided, or None if all retry attempts fail.
         """
-        max_retries = kwargs.get("max_retries", 5)
+        max_retries = kwargs.get("max_retries", 0)
         base_delay = kwargs.get("base_delay", 10.0)
         model_name = model_name_map[self.config.model_name]["model_name"]
         thinking_enabled = model_name_map[self.config.model_name]["thinking_enabled"]

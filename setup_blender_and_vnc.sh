@@ -53,7 +53,7 @@ check_process() {
 # Function to wait for a port to be available
 wait_for_port() {
     local port=$1
-    local timeout=30
+    local timeout=10
     local count=0
     
     echo -e "${YELLOW}Waiting for port $port to be available...${NC}"

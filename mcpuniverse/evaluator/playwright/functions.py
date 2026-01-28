@@ -137,7 +137,7 @@ async def playwright__get_flight_price(
 
             # Wait for the flight card element to appear
             print("Waiting for #flightcard-0 element...")
-            await page.wait_for_selector("#flightcard-0", timeout=30000)  # 30 seconds timeout
+            await page.wait_for_selector("#flightcard-0", timeout=10000)  # 30 seconds timeout
 
             # Extract the price content from the specified selector
             price_selector = '#flightcard-0 [data-testid="upt_price"]'
@@ -214,7 +214,7 @@ async def playwright__get_flight_price_with_time(depart_date: str):
 
             # Wait for the flight card element to appear
             print("Waiting for #flightcard-0 element...")
-            await page.wait_for_selector("#flightcard-0", timeout=30000)  # 30 seconds timeout
+            await page.wait_for_selector("#flightcard-0", timeout=10000)  # 30 seconds timeout
 
             # Extract the price content from the specified selector
             price_selector = '#flightcard-0 [data-testid="upt_price"]'
@@ -296,7 +296,7 @@ async def playwright__get_hotel_price(checkin_date: str):
 
             # Wait for the hotel card element to appear
             print('Waiting for #meta-real-price element...')
-            await page.wait_for_selector('#meta-real-price', timeout=30000)  # 30 seconds timeout
+            await page.wait_for_selector('#meta-real-price', timeout=10000)  # 30 seconds timeout
 
             # Extract the price content from the specified selector
             price_selector = '#meta-real-price'
@@ -401,7 +401,7 @@ async def playwright__get_hotel_price_with_conditions(checkin_date: str, currenc
 
             # Wait for the hotel card element to appear
             print('Waiting for [data-testid="property-card"] element...')
-            await page.wait_for_selector('[data-testid="property-card"]', timeout=30000)  # 30 seconds timeout
+            await page.wait_for_selector('[data-testid="property-card"]', timeout=10000)  # 30 seconds timeout
 
             # Extract the price content from the specified selector
             price_selector = '[data-testid="property-card"] [data-testid="price-and-discounted-price"]'
@@ -501,7 +501,7 @@ async def playwright__booking_com_get_hotel_price_with_lowest_price_highest_rati
 
             # Wait for the hotel card element to appear
             print('Waiting for [data-testid="property-card"] element...')
-            await page.wait_for_selector('[data-testid="property-card"]', timeout=30000)  # 30 seconds timeout
+            await page.wait_for_selector('[data-testid="property-card"]', timeout=10000)  # 30 seconds timeout
 
             title_selector = '[data-testid="property-card"] [data-testid="title"]'
             await page.wait_for_selector(title_selector, timeout=10000)  # 10 seconds timeout
@@ -562,7 +562,7 @@ async def playwright__get_rwsentosa_price_with_conditions(checkin_date: str, the
             # Wait for the attraction booking widget elements to appear
             print('Waiting for .attraction-booking-widget__control .control-wrapper elements...')
             await page.wait_for_selector('.attraction-booking-widget__control .control-wrapper',
-                                         timeout=30000)  # 30 seconds timeout
+                                         timeout=10000)  # 30 seconds timeout
 
             # Find all control wrapper elements
             control_wrappers = await page.query_selector_all('.attraction-booking-widget__control .control-wrapper')
