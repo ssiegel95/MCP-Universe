@@ -5,6 +5,7 @@ This module provides integration with LiteLLM, a unified interface for multiple 
 LiteLLM supports 100+ LLMs including OpenAI, Anthropic, Cohere, Replicate, and more.
 Includes support for fallback models and cost tracking.
 """
+
 # pylint: disable=broad-exception-caught
 import os
 import time
@@ -23,7 +24,8 @@ load_dotenv()
 
 # Import litellm with error handling
 try:
-    from litellm import completion, completion_cost
+    from litellm import completion
+    from litellm.cost_calculator import completion_cost
     LITELLM_AVAILABLE = True
 except ImportError:
     LITELLM_AVAILABLE = False
@@ -41,7 +43,7 @@ class LiteLLMConfig(BaseConfig):
     Attributes:
         model_name (str): The primary model to use. Format: "provider/model-name"
             Examples: "gpt-4o", "claude-3-5-sonnet-20241022", "gemini/gemini-pro"
-            Default: "gpt-4o"
+            Default: "Azure/gpt-5-mini-2025-08-07"
         fallback_models (List[str]): List of fallback models to try if primary fails.
             Default: empty list
         api_key (str): API key for LiteLLM. Can also use provider-specific keys.
@@ -105,6 +107,7 @@ class LiteLLMModel(BaseLLM):
         ... ])
         >>> print(f"Total cost: ${model.total_cost:.4f}")
     """
+
     config_class = LiteLLMConfig
     alias = "litellm"
     env_vars = ["LITELLM_API_KEY"]
@@ -148,11 +151,11 @@ class LiteLLMModel(BaseLLM):
             return 0.0
 
     def _try_model(
-            self,
-            model_name: str,
-            messages: List[dict[str, str]],
-            response_format: Type[PydanticBaseModel] = None,
-            **kwargs
+        self,
+        model_name: str,
+        messages: List[dict[str, str]],
+        response_format: Type[PydanticBaseModel] = None,
+        **kwargs,
     ):
         """
         Attempt to generate content using a specific model.
@@ -192,11 +195,19 @@ class LiteLLMModel(BaseLLM):
             litellm_params["response_format"] = {"type": "json_object"}
             # Add schema to system message for better results
             schema_str = response_format.model_json_schema()
-            schema_instruction = f"\n\nPlease respond with valid JSON matching this schema: {schema_str}"
+            schema_instruction = (
+                f"\n\nPlease respond with valid JSON matching this schema: {schema_str}"
+            )
             if messages and messages[0]["role"] == "system":
                 messages[0]["content"] += schema_instruction
             else:
-                messages.insert(0, {"role": "system", "content": f"You are a helpful assistant.{schema_instruction}"})
+                messages.insert(
+                    0,
+                    {
+                        "role": "system",
+                        "content": f"You are a helpful assistant.{schema_instruction}",
+                    },
+                )
 
         # Handle tool calling
         if "tools" in kwargs:
@@ -217,7 +228,9 @@ class LiteLLMModel(BaseLLM):
                 self.total_cost += cost
                 self.logger.info(
                     "Model: %s | Cost: $%.6f | Total: $%.6f",
-                    model_name, cost, self.total_cost
+                    model_name,
+                    cost,
+                    self.total_cost,
                 )
 
             # Handle tool calling responses
@@ -231,6 +244,7 @@ class LiteLLMModel(BaseLLM):
             if response_format is not None:
                 try:
                     import json
+
                     parsed_json = json.loads(content)
                     return response_format.model_validate(parsed_json), cost
                 except Exception as e:
@@ -245,10 +259,10 @@ class LiteLLMModel(BaseLLM):
             return None, 0.0
 
     def _generate(
-            self,
-            messages: List[dict[str, str]],
-            response_format: Type[PydanticBaseModel] = None,
-            **kwargs
+        self,
+        messages: List[dict[str, str]],
+        response_format: Type[PydanticBaseModel] = None,
+        **kwargs,
     ):
         """
         Generates content using LiteLLM with fallback support.
@@ -283,8 +297,7 @@ class LiteLLMModel(BaseLLM):
         # Try each model
         for model_idx, model_name in enumerate(models_to_try):
             self.logger.info(
-                "Trying model %d/%d: %s",
-                model_idx + 1, len(models_to_try), model_name
+                "Trying model %d/%d: %s", model_idx + 1, len(models_to_try), model_name
             )
 
             # Retry logic with exponential backoff for each model
@@ -298,24 +311,22 @@ class LiteLLMModel(BaseLLM):
 
                 if attempt < max_retries:
                     # Calculate delay with exponential backoff
-                    delay = base_delay * (2 ** attempt)
+                    delay = base_delay * (2**attempt)
                     self.logger.info(
                         "Attempt %d/%d failed. Retrying in %.1f seconds...",
-                        attempt + 1, max_retries + 1, delay
+                        attempt + 1,
+                        max_retries + 1,
+                        delay,
                     )
                     time.sleep(delay)
 
             # If we get here, all retries for this model failed
             self.logger.warning(
-                "All %d attempts failed for model: %s",
-                max_retries + 1, model_name
+                "All %d attempts failed for model: %s", max_retries + 1, model_name
             )
 
         # All models failed
-        self.logger.error(
-            "All models failed: %s",
-            ", ".join(models_to_try)
-        )
+        self.logger.error("All models failed: %s", ", ".join(models_to_try))
         return None
 
     def set_context(self, context: Context):
@@ -356,4 +367,6 @@ class LiteLLMModel(BaseLLM):
         self.total_cost = 0.0
         self.logger.info("Cost tracker reset to $0.00")
 
+
 # Made with Bob
+
