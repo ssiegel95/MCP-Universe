@@ -11,6 +11,7 @@ from .openai_agent import OpenAIAgentModel
 from .openrouter import OpenRouterModel
 from .gemini import GeminiModel
 from .vllm_gptoss import VLLMLocalModel
+from .litellm import LiteLLMModel
 
 __all__ = [
     "OpenAIModel",
@@ -24,4 +25,5 @@ __all__ = [
     "OpenRouterModel",
     "GeminiModel",
     "VLLMLocalModel",
+    "LiteLLMModel",
 ]
