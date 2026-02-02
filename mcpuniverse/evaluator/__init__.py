@@ -27,6 +27,8 @@ from .mcpmark.filesystem_functions import *
 from .mcpmark.playwright_functions import *
 from .mcpmark.postgres_functions import *
 
+from .tsfm import *
+
 
 __all__ = [
     "Evaluator",
